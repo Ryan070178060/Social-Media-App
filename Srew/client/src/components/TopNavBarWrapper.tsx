@@ -8,7 +8,6 @@ export default function TopNavBarWrapper({ children }: { children: any }) {
         </div>
       </header>
       <div className="dark-overlay"
-       style={{ minHeight: "100px", background: "DarkOliveGreen" }}
       >
         
       </div>

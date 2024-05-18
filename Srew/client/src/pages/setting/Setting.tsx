@@ -1,8 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import SettingHeader from "./components/SettingHeader";
+import { useState } from "react";
 
 export default function Setting() {
   const navigate = useNavigate();
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+    const root = document.documentElement;
+    if (isDarkTheme) {
+      root.style.setProperty('--background-color', '#ffffff');
+      root.style.setProperty('--text-color', '#000000');
+      // Add more CSS variables for light theme
+    } else {
+      root.style.setProperty('--background-color', '#000000');
+      root.style.setProperty('--text-color', '#ffffff');
+      // Add more CSS variables for dark theme
+    }
+  };
+  
 
   return (
     <>
@@ -153,6 +170,13 @@ export default function Setting() {
               </li>
             </ul>
           </div>
+          <button
+            onClick={toggleTheme}
+            className="btn btn-primary"
+            style={{ position: "fixed", bottom: "20px", right: "20px" }}
+          >
+            {isDarkTheme ? "Light Theme" : "Dark Theme"}
+          </button>
         </div>
       </div>
     </>

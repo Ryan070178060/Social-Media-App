@@ -7,7 +7,7 @@ export default function HomeFooterNav({ active }: { active?: string }) {
         <div className="menubar-area">
           <div
             className="toolbar-inner menubar-nav"
-            style={{ minHeight: "100px", background: "DarkOliveGreen" }}
+            style={{ minHeight: "100px", background: "DarkOliveGreen", borderRadius: "18px 18px 0px 0"}}
           >
           <Link
             to="/home"
