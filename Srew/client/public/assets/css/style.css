@@ -138,8 +138,8 @@
   --bs-secondary: #b8dd10;
   --bs-success: #84CA93;
   --bs-info: #A183E0;
-  --bs-warning: #FFA902;
-  --bs-danger: #f75a5b;
+  --bs-warning: #9b0a0a;
+  --bs-danger: #790f0f;
   --bs-light: #E6E6E6;
   --bs-dark: #2F2F2F;
   --bs-primary-rgb: 254, 144, 99;
@@ -181,7 +181,7 @@ body {
   line-height: var(--bs-body-line-height);
   color: var(--bs-body-color);
   text-align: var(--bs-body-text-align);
-  background-color: wheat;
+  background-color: rgb(206, 253, 217);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(40, 94, 43, 0); }
 
@@ -2488,11 +2488,11 @@ textarea.form-control-lg {
     border-color: #2F2F2F; }
 
 .btn-outline-primary {
-  color: #FE9063;
+  color: #340f42;
   border-color: #FE9063; }
   .btn-outline-primary:hover {
     color: #000;
-    background-color: #FE9063;
+    background-color: #8e309b;
     border-color: #FE9063; }
   .btn-check:focus + .btn-outline-primary, .btn-outline-primary:focus {
     box-shadow: 0 0 0 0rem rgba(254, 144, 99, 0.5); }
@@ -2505,7 +2505,7 @@ textarea.form-control-lg {
     .btn-check:active + .btn-outline-primary:focus, .btn-outline-primary:active:focus, .btn-outline-primary.active:focus, .btn-outline-primary.dropdown-toggle.show:focus {
       box-shadow: 0 0 0 0rem rgba(254, 144, 99, 0.5); }
   .btn-outline-primary:disabled, .btn-outline-primary.disabled {
-    color: #FE9063;
+    color: #c427af;
     background-color: transparent; }
 
 .btn-outline-secondary {
@@ -4237,7 +4237,7 @@ textarea.form-control-lg {
   max-width: 100%;
   font-size: 0.875rem;
   pointer-events: auto;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 85);
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 35px 66px 0px rgba(236, 21, 21, 0.15);
@@ -4258,7 +4258,7 @@ textarea.form-control-lg {
   display: flex;
   align-items: center;
   padding: 0.5rem 0.75rem;
-  color: #6c757d;
+  color: red;
   background-color: rgba(255, 255, 255, 0.85);
   background-clip: padding-box;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -7961,7 +7961,7 @@ textarea.form-control-lg {
 
 body {
   line-height: 1.6;
-  color: plum;
+  color: gray;
   font-size: 0.875rem;
   font-weight: 400;
   font-family: var(--font-family-base);
@@ -10863,8 +10863,8 @@ section {
       font-weight: 900; }
 
 :root {
-  --primary:purple;
-  --secondary: green;
+  --primary:black;
+  --secondary: rgb(147,112,219);
   --primary-light: rgba(255, 251, 246, 0.80);
   --primary-light-2: #FFCD90;
   --gradient: linear-gradient(73.08deg, #2C406E 15.14%, #d5bdff 92.25%);
@@ -13756,22 +13756,22 @@ button {
       .toast.style-1.toast-success .btn-close {
         filter: invert(1) grayscale(100%) brightness(200%); }
     .toast.style-1.toast-warning {
-      background-color: #FFA902;
-      color: #fff; }
+      background-color: black;
+      color: black; }
       .toast.style-1.toast-warning .text-primary svg path {
         fill: #fff !important; }
       .toast.style-1.toast-warning .toast-content strong {
-        color: #fff;
+        color: black;
         font-weight: 500; }
       .toast.style-1.toast-warning .btn-close {
-        filter: invert(1) grayscale(100%) brightness(200%); }
+        filter: invert(1) grayscale(100%) brightness(100%); }
     .toast.style-1.toast-danger {
-      background-color: #f75a5b;
-      color: #fff; }
+      background-color: red;
+      color: red; }
       .toast.style-1.toast-danger .text-primary svg path {
-        fill: #fff !important; }
+        fill: red !important; }
       .toast.style-1.toast-danger .toast-content strong {
-        color: #fff;
+        color: red;
         font-weight: 500; }
       .toast.style-1.toast-danger .btn-close {
         filter: invert(1) grayscale(100%) brightness(200%); }
@@ -15491,11 +15491,11 @@ ul.list-check {
         padding: 10px 10px; }
         .social-bar ul li a h4, .social-bar ul li a .h4 {
           margin-bottom: 0;
-          color: #fff; }
+          color: black; }
         .social-bar ul li a span {
           color: black; }
       .social-bar ul li.active a {
-        background: purple;
+        background: white;
         position: relative; }
         .social-bar ul li.active a:after {
           content: "";

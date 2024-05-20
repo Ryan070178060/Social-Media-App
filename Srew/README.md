@@ -1,1 +1,1 @@
-# VidiBattle
+# Rizzy

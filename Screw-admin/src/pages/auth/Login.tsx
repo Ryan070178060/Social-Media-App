@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import style from "./login.module.css";
-import { create } from "../../services/api";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { create } from "../../services/api";
 import { setUser, setUserId } from "../../services/auth";
+import style from "./login.module.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -113,7 +113,7 @@ export default function Login() {
                       className="logo d-flex align-items-center w-auto"
                     >
                       <img src="assets/img/logo.png" alt="" />
-                      <span className="d-none d-lg-block">VidiBattle Admin</span>
+                      <span className="d-none d-lg-block">Rizzy Admin</span>
                     </a>
                   </div>
 

@@ -63,9 +63,9 @@ export default function AddPWA({ installPWA }: { installPWA: any }) {
         <div className="container">
           <div className="offcanvas-body small">
             <img className="logo" src="/assets/images/icon.png" alt="" />
-            <h5 className="title">VidiBattle on Your Home Screen</h5>
+            <h5 className="title">Rizzy on Your Home Screen</h5>
             <p>
-              Install VidiBattle social network mobile app to your home screen for
+              Install Rizzy social network mobile app to your home screen for
               easy access, just like any other app
             </p>
             <button

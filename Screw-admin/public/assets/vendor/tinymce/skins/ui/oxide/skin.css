@@ -1021,7 +1021,7 @@ button::-moz-focus-inner {
   justify-content: center;
 }
 .tox .tox-swatch--remove svg path {
-  stroke: #e74c3c;
+  stroke: #b61200;
 }
 .tox .tox-swatches__picker-btn {
   align-items: center;

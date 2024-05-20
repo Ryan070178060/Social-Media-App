@@ -17,7 +17,7 @@ export default function NoPostsFound({
             <Link
               to={"/create-post"}
               className="btn btn-secondary m-auto w-auto"
-              style={{ background: "DarkOliveGreen"}}
+              style={{ background: "indigo"}}
             >
               <i className="fa fa-plus fa-lg pe-2"></i>
               <span>Create Post</span>

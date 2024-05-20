@@ -39,7 +39,7 @@ const connect = mongoose
     const sessionMiddleware = (cookieName) =>
       session({
         name: cookieName,
-        secret: process.env.SESSION_SECRET || "vidibattle",
+        secret: process.env.SESSION_SECRET || "Rizzy",
         resave: false,
         store: MongoStore.create({ mongoUrl: process.env.ATLAS_URI ?? "" }),
         saveUninitialized: true,

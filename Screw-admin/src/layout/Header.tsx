@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { clearAuth, getUser } from "../services/auth";
-import { getName } from "../utils/getName";
-import {
-  formatResourceURL,
-  handleProfileImageError,
-} from "../utils/asset-paths";
-import { get } from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { get } from "../services/api";
+import { clearAuth, getUser } from "../services/auth";
+import {
+    formatResourceURL,
+    handleProfileImageError,
+} from "../utils/asset-paths";
+import { getName } from "../utils/getName";
 
 export default function Header() {
   const [currentUser, setCurrentUser] = useState<any>();
@@ -54,7 +54,7 @@ export default function Header() {
               alt=""
               style={{ maxHeight: "41px" }}
             />
-            <span className="d-none d-lg-block">VidiBattle Admin</span>
+            <span className="d-none d-lg-block">Rizzy Admin</span>
           </Link>
           <i
             onClick={toggleSideBar}

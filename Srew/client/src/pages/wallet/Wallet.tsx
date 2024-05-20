@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import WalletHeader from "./components/WalletHeader";
-import PageLoading from "../../components/PageLoading";
-import { create, get } from "../../services/crud";
-import { getUserId } from "../../services/auth";
-import { toast } from "react-toastify";
-import {
-  formatResourceURL,
-  handleProfileImageError,
-} from "../../services/asset-paths";
-import { getName } from "../../services/utils";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import PageLoading from "../../components/PageLoading";
 import { env } from "../../env";
+import {
+    formatResourceURL,
+    handleProfileImageError,
+} from "../../services/asset-paths";
+import { getUserId } from "../../services/auth";
+import { create, get } from "../../services/crud";
+import { getName } from "../../services/utils";
+import WalletHeader from "./components/WalletHeader";
 
 export default function Wallet() {
   const [walletInfo, setWalletInfo] = useState<any>(null);
@@ -76,7 +76,7 @@ export default function Wallet() {
       amount: order.amount,
       currency: "INR",
       name: env.VITE_APP_NAME,
-      description: "Load to your VidiBattle wallet",
+      description: "Load to your Rizzy wallet",
       image: "./assets/images/icon.png",
       order_id: order.id,
       handler: (response: any) => {
