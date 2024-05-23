@@ -1,8 +1,9 @@
 const createHttpError = require("http-errors");
 const { User } = require("../models/user.model");
 const { Wallet } = require("../models/wallet.model");
-const Razorpay = require("razorpay");
 const crypto = require("crypto");
+const { client } = require("../services/paypal");
+const paypal = require('@paypal/checkout-server-sdk');
 
 module.exports.createWallet = async (userId, balance = 0) => {
   const user = await User.findById(userId);
@@ -111,55 +112,46 @@ module.exports.getWalletInfo = async (req, res, next) => {
   }
 };
 
-const instance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
-
 module.exports.createOrder = async (req, res, next) => {
   try {
     const { amount } = req.body;
-
-    const options = {
-      amount: amount * 100,
-      currency: "INR",
-      receipt: crypto.randomBytes(10).toString("hex"),
-    };
-
-    instance.orders.create(options, (error, order) => {
-      if (error) {
-        console.log("Order error", error);
-        return res.status(500).json({ message: "error while creating order!" });
-      }
-      res.status(200).json({ data: order });
+    const request = new paypal.orders.OrdersCreateRequest();
+    request.prefer("return=representation");
+    request.requestBody({
+      intent: 'CAPTURE',
+      purchase_units: [{
+        amount: {
+          currency_code: 'USD',
+          value: amount
+        }
+      }]
     });
-  } catch (e) {
-    next(e);
+
+    const order = await client().execute(request);
+    res.status(200).json({ data: order.result });
+  } catch (error) {
+    console.log("Order error", error);
+    res.status(500).json({ message: "error while creating order!" });
   }
 };
 
 module.exports.verifyPayment = async (req, res, next) => {
   try {
-    const {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
-      amount,
-      userId,
-    } = req.body;
-    const sign = razorpay_order_id + "|" + razorpay_payment_id;
-    const resultSign = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-      .update(sign.toString())
-      .digest("hex");
+    const { orderID, userId, amount } = req.body;
 
-    if (razorpay_signature == resultSign) {
+    const request = new paypal.orders.OrdersCaptureRequest(orderID);
+    request.requestBody({});
+
+    const capture = await client().execute(request);
+
+    if (capture.result.status === 'COMPLETED') {
       const wallet = await this.updateBalance(userId, amount);
-      return res
-        .status(200)
-        .json({ message: "Payment verified successfully", data: wallet });
+      res.status(200).json({ message: "Payment verified successfully", data: wallet });
+    } else {
+      res.status(400).json({ message: "Payment not verified" });
     }
   } catch (e) {
+   
     next(e);
   }
 };

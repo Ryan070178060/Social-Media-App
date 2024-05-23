@@ -22,9 +22,9 @@ export default function Wallet() {
 
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    const head = document.getElementsByTagName("head")[0];
-    head.appendChild(script);
+    script.src = `https://www.paypal.com/sdk/js?client-id=${env.VITE_PAYPAL_CLIENT_ID}&currency=USD`;
+    script.addEventListener("load", () => setPageLoading(false));
+    document.body.appendChild(script);
     fetchWalletInfo();
   }, []);
 
@@ -54,7 +54,7 @@ export default function Wallet() {
       amount: rechargeAmount,
     })
       .then((res) => {
-        showRazorPay(res.data);
+        showPayPalButton(res.data);
       })
       .catch((e) => {
         console.error(e);
@@ -65,42 +65,34 @@ export default function Wallet() {
       });
   };
 
-  const showRazorPay = (order: any) => {
-    const userInfo: any = { name: getName(walletInfo.user) };
-    if (walletInfo.user?.email) userInfo.email = walletInfo.user?.email;
-    if (walletInfo.user?.contact_no)
-      userInfo.contact = walletInfo.user?.contact_no;
-
-    const options: any = {
-      key: env.VITE_RAZORPAY_KEY_ID,
-      amount: order.amount,
-      currency: "INR",
-      name: env.VITE_APP_NAME,
-      description: "Load to your Rizzy wallet",
-      image: "./assets/images/icon.png",
-      order_id: order.id,
-      handler: (response: any) => {
-        verifyPayment(response, order.amount / 100);
-      },
-      prefill: userInfo,
-      theme: {
-        color: "#FE9063",
-      },
-    };
-
-    const rzp1 = new (window as any).Razorpay(options);
-
-    rzp1.on("payment.failed", function (response: any) {
-      console.log(response.error.code);
-      console.log(response.error.description);
-      console.log(response.error.source);
-      console.log(response.error.step);
-      console.log(response.error.reason);
-      console.log(response.error.metadata.order_id);
-      console.log(response.error.metadata.payment_id);
-      toast.error("Error! payment failed.");
-    });
-    rzp1.open();
+  const showPayPalButton = (order: any) => {
+    if (window.paypal) {
+      window.paypal.Buttons({
+        createOrder: (data: any, actions: { order: { create: (arg0: { purchase_units: { amount: { value: any; }; }[]; }) => any; }; }) => {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: order.amount
+              }
+            }]
+          });
+        },
+        onApprove: (data: any, actions: { order: { capture: () => Promise<any>; }; }) => {
+          return actions.order.capture().then(details => {
+            verifyPayment(data, order.amount);
+          });
+        },
+        onError: (err: any) => {
+          console.error(err);
+          toast.error("Error! payment failed.");
+          setRechargeLoading(false);
+        }
+      }).render('#paypal-button-container');
+    } else {
+      console.error("PayPal SDK not loaded");
+      toast.error("Error! PayPal SDK not loaded.");
+      setRechargeLoading(false);
+    }
   };
 
   const verifyPayment = (paymentInfo: any, amount: number) => {
@@ -169,7 +161,7 @@ export default function Wallet() {
             <div className="text-center">
               <h3 className="m-3 align-center">Wallet Balance</h3>
               <h4 className="text-secondary">
-                <i className="fa fa-inr me-1"></i>
+                <i className="fa fa-usd me-1"></i>
                 <span>{walletInfo.balance}</span>
               </h4>
             </div>
@@ -214,7 +206,7 @@ export default function Wallet() {
                 />
               </div>
               <div>
-                <button
+                <button style={{alignItems:"center"}}
                   disabled={!rechargeAmount || rechargeLoading}
                   className="btn btn-secondary"
                   type="submit"
@@ -225,6 +217,7 @@ export default function Wallet() {
                     <span>Load to Wallet</span>
                   )}
                 </button>
+                <div id="paypal-button-container" style={{padding:20}}></div>
               </div>
             </form>
           </div>
