@@ -68,7 +68,7 @@ export default function Wallet() {
   const showPayPalButton = (order: any) => {
     if (window.paypal) {
       window.paypal.Buttons({
-        createOrder: (data: any, actions: { order: { create: (arg0: { purchase_units: { amount: { value: any; }; }[]; }) => any; }; }) => {
+        createOrder: (_data: any, actions: { order: { create: (arg0: { purchase_units: { amount: { value: any; }; }[]; }) => any; }; }) => {
           return actions.order.create({
             purchase_units: [{
               amount: {
@@ -78,7 +78,7 @@ export default function Wallet() {
           });
         },
         onApprove: (data: any, actions: { order: { capture: () => Promise<any>; }; }) => {
-          return actions.order.capture().then(details => {
+          return actions.order.capture().then(_details => {
             verifyPayment(data, order.amount);
           });
         },
