@@ -71,6 +71,11 @@ const connect = mongoose
     app.use("/api", routes);
     app.use("/admin/api", routes);
 
+    // Define a route for the root URL
+    app.get("/", (req, res) => {
+      res.send("Welcome to the API!");
+    });
+
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {
       next(createError(404, "Page Not Found"));
