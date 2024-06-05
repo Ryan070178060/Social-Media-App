@@ -61,7 +61,7 @@ const connect = mongoose
 
     app.use(
       cors({
-        origin: [process.env.CLIENT_URL, process.env.ADMIN_URL],
+        origin: '*', // Allow requests from any origin
         methods: "GET,POST,PUT,DELETE",
         credentials: true,
       })
