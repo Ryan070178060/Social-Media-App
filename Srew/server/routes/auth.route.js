@@ -27,7 +27,7 @@ router.get("/facebook", passport.authenticate("facebook"));
 router.get("/instagram", passport.authenticate("instagram"));
 
 router.get(
-  "/auth/google/callback",
+  "/api/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/api/auth/login/failed",
   }),
