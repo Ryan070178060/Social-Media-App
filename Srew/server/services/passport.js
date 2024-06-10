@@ -18,6 +18,7 @@ passport.use(
       scope: ["profile", "email"],
     },
     async (accessToken, refreshToken, profile, done) => {
+      console.log('GoogleStrategy callback executed');
       try {
         const email = profile.emails?.[0]?.value;
         const user = {
@@ -29,6 +30,8 @@ passport.use(
           provider: "google",
           profile_id: profile.id,
         };
+
+        console.log('User object:', user);
 
         const existingUser = await User.findOne({
           profile_id: user.profile_id,
@@ -42,23 +45,23 @@ passport.use(
           return done(null, existingUser);
         }
 
-        // make a copy of the profile image and store it on db
         const profileImg = await storeProfile(user.profile_img);
         user.profile_img = profileImg;
         const newUser = new User(user);
 
         await newUser.save();
 
-        // create wallet
         await createWallet(newUser._id);
 
         return done(null, newUser);
       } catch (err) {
+        console.log('Error in GoogleStrategy:', err);
         return done(err);
       }
     }
   )
 );
+
 
 // Facebook OAuth
 passport.use(
