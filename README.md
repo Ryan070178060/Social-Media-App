@@ -37,5 +37,5 @@ Rizzy Chat is a modern social media application built with the MERN stack (Mongo
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/rizzy-chat.git
+   git clone https://github.com/Ryan070178060/rizzy-chat.git
    cd rizzy-chat
